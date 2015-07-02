@@ -3,11 +3,11 @@
 
 #include <QString>
 
-class Usuario {
+class User {
 public:
-    Usuario();
-    Usuario(const Usuario& orig);
-    virtual ~Usuario();
+    User();
+    User(const User& orig);
+    virtual ~User();
     void setPassword(QString );
     QString getPassword() const;
     void setName(QString );

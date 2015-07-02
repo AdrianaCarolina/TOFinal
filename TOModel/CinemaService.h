@@ -9,11 +9,7 @@
 #define	CINEMASERVICE_H
 
 #include "Cinema.h"
-#include "databasemanagement.h"
-#include <iostream>
-#include <sstream>
-
-using namespace std;
+#include "DataBaseManagement.h"
 
 class CinemaService {
 public:
@@ -26,7 +22,7 @@ public:
     CinemaService(const CinemaService& orig);
     virtual ~CinemaService();
 private:
-    DataBaseManagement* DATABASE_MANAGEMENT=new DataBaseManagement();
+    DataBaseManagement* DATABASE_MANAGEMENT=DataBaseManagement::initialize();
 };
 
 #endif	/* CINEMASERVICE_H */

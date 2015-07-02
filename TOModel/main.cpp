@@ -1,6 +1,7 @@
 #include <QCoreApplication>
 
 #include "CinemaService.h"
+#include "UserService.h"
 
 int main(int argc, char *argv[])
 {
@@ -26,5 +27,30 @@ int main(int argc, char *argv[])
     while (it2.hasNext()) {
         qDebug()<<it2.next()->getName();
     }
+
+    UserService* _us=new UserService();
+    User* _user=new User();
+    _user->setId(1);
+    _user->setName("juan");
+    _user->setPassword("1234567");
+    _user->setAccess(1);
+    //_us->addUser(_user);
+    _us->updateUser(_user);
+
+    QList<User*> _qlistUser;
+    _qlistUser=    _us->findUser();
+    QListIterator<User*> itUser(_qlistUser);
+    while (itUser.hasNext()) {
+        qDebug()<<itUser.next()->getName();
+    }
+    _us->deleteUser(2);
+     qDebug()<<"-----";
+    _qlistUser=    _us->findUser();
+    QListIterator<User*> itUser2(_qlistUser);
+    while (itUser2.hasNext()) {
+        qDebug()<<itUser2.next()->getName();
+    }
+
+
     return a.exec();
 }

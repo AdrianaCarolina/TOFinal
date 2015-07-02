@@ -18,17 +18,23 @@ TEMPLATE = app
 SOURCES += main.cpp \
     Cinema.cpp \
     CinemaService.cpp \
-    databasemanagement.cpp \
     Movie.cpp \
     Room.cpp \
     Schedule.cpp \
-    usuario.cpp
+    DataBaseManagement.cpp \
+    User.cpp \
+    UserService.cpp \
+    Permission.cpp \
+    PermissionService.cpp
 
 HEADERS += \
     Cinema.h \
     CinemaService.h \
-    databasemanagement.h \
     Movie.h \
     Room.h \
     Schedule.h \
-    usuario.h
+    DataBaseManagement.h \
+    User.h \
+    UserService.h \
+    Permission.h \
+    PermissionService.h

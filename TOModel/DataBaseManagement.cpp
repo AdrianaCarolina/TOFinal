@@ -1,4 +1,14 @@
-#include "databasemanagement.h"
+#include "DataBaseManagement.h"
+
+
+DataBaseManagement* DataBaseManagement::instance=0;
+
+DataBaseManagement* DataBaseManagement::initialize(){
+    if(!instance){
+        instance=new DataBaseManagement();
+    }
+    return instance;
+}
 
 DataBaseManagement::DataBaseManagement(){
     qSqlDataBase= QSqlDatabase::addDatabase(TYPE_DRIVER);
@@ -38,6 +48,7 @@ QSqlQuery* DataBaseManagement::getQuery(QString _query){
 
 bool::DataBaseManagement::close(){
     qSqlQuery->clear();
+    delete qSqlQuery;
     qSqlQuery=0;
     qSqlDataBase.close();
     qDebug() <<"info: se cerro la coneccion a la base de datos";

@@ -51,19 +51,25 @@ OBJECTS_DIR   = ./
 SOURCES       = ../TOModel/main.cpp \
 		../TOModel/Cinema.cpp \
 		../TOModel/CinemaService.cpp \
-		../TOModel/databasemanagement.cpp \
 		../TOModel/Movie.cpp \
 		../TOModel/Room.cpp \
 		../TOModel/Schedule.cpp \
-		../TOModel/usuario.cpp 
+		../TOModel/DataBaseManagement.cpp \
+		../TOModel/User.cpp \
+		../TOModel/UserService.cpp \
+		../TOModel/Permission.cpp \
+		../TOModel/PermissionService.cpp 
 OBJECTS       = main.o \
 		Cinema.o \
 		CinemaService.o \
-		databasemanagement.o \
 		Movie.o \
 		Room.o \
 		Schedule.o \
-		usuario.o
+		DataBaseManagement.o \
+		User.o \
+		UserService.o \
+		Permission.o \
+		PermissionService.o
 DIST          = /opt/Qt/5.4/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt/5.4/gcc_64/mkspecs/common/shell-unix.conf \
 		/opt/Qt/5.4/gcc_64/mkspecs/common/unix.conf \
@@ -183,18 +189,24 @@ DIST          = /opt/Qt/5.4/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt/5.4/gcc_64/mkspecs/features/lex.prf \
 		../TOModel/TOModel.pro ../TOModel/Cinema.h \
 		../TOModel/CinemaService.h \
-		../TOModel/databasemanagement.h \
 		../TOModel/Movie.h \
 		../TOModel/Room.h \
 		../TOModel/Schedule.h \
-		../TOModel/usuario.h ../TOModel/main.cpp \
+		../TOModel/DataBaseManagement.h \
+		../TOModel/User.h \
+		../TOModel/UserService.h \
+		../TOModel/Permission.h \
+		../TOModel/PermissionService.h ../TOModel/main.cpp \
 		../TOModel/Cinema.cpp \
 		../TOModel/CinemaService.cpp \
-		../TOModel/databasemanagement.cpp \
 		../TOModel/Movie.cpp \
 		../TOModel/Room.cpp \
 		../TOModel/Schedule.cpp \
-		../TOModel/usuario.cpp
+		../TOModel/DataBaseManagement.cpp \
+		../TOModel/User.cpp \
+		../TOModel/UserService.cpp \
+		../TOModel/Permission.cpp \
+		../TOModel/PermissionService.cpp
 QMAKE_TARGET  = TOModel
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = TOModel
@@ -480,8 +492,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../TOModel/Cinema.h ../TOModel/CinemaService.h ../TOModel/databasemanagement.h ../TOModel/Movie.h ../TOModel/Room.h ../TOModel/Schedule.h ../TOModel/usuario.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../TOModel/main.cpp ../TOModel/Cinema.cpp ../TOModel/CinemaService.cpp ../TOModel/databasemanagement.cpp ../TOModel/Movie.cpp ../TOModel/Room.cpp ../TOModel/Schedule.cpp ../TOModel/usuario.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../TOModel/Cinema.h ../TOModel/CinemaService.h ../TOModel/Movie.h ../TOModel/Room.h ../TOModel/Schedule.h ../TOModel/DataBaseManagement.h ../TOModel/User.h ../TOModel/UserService.h ../TOModel/Permission.h ../TOModel/PermissionService.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../TOModel/main.cpp ../TOModel/Cinema.cpp ../TOModel/CinemaService.cpp ../TOModel/Movie.cpp ../TOModel/Room.cpp ../TOModel/Schedule.cpp ../TOModel/DataBaseManagement.cpp ../TOModel/User.cpp ../TOModel/UserService.cpp ../TOModel/Permission.cpp ../TOModel/PermissionService.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -573,7 +585,7 @@ main.o: ../TOModel/main.cpp /opt/Qt/5.4/gcc_64/include/QtCore/QCoreApplication \
 		../TOModel/CinemaService.h \
 		../TOModel/Cinema.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/QString \
-		../TOModel/databasemanagement.h \
+		../TOModel/DataBaseManagement.h \
 		/opt/Qt/5.4/gcc_64/include/QtSql/QtSql \
 		/opt/Qt/5.4/gcc_64/include/QtSql/QtSqlDepends \
 		/opt/Qt/5.4/gcc_64/include/QtCore/QtCore \
@@ -767,7 +779,9 @@ main.o: ../TOModel/main.cpp /opt/Qt/5.4/gcc_64/include/QtCore/QCoreApplication \
 		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlrelationaltablemodel.h \
 		/opt/Qt/5.4/gcc_64/include/QtSql/qsqltablemodel.h \
 		/opt/Qt/5.4/gcc_64/include/QtSql/qtsqlversion.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/QDebug
+		/opt/Qt/5.4/gcc_64/include/QtCore/QDebug \
+		../TOModel/UserService.h \
+		../TOModel/User.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../TOModel/main.cpp
 
 Cinema.o: ../TOModel/Cinema.cpp ../TOModel/Cinema.h \
@@ -847,7 +861,7 @@ CinemaService.o: ../TOModel/CinemaService.cpp ../TOModel/CinemaService.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qnamespace.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qarraydata.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qstringbuilder.h \
-		../TOModel/databasemanagement.h \
+		../TOModel/DataBaseManagement.h \
 		/opt/Qt/5.4/gcc_64/include/QtSql/QtSql \
 		/opt/Qt/5.4/gcc_64/include/QtSql/QtSqlDepends \
 		/opt/Qt/5.4/gcc_64/include/QtCore/QtCore \
@@ -1060,7 +1074,52 @@ CinemaService.o: ../TOModel/CinemaService.cpp ../TOModel/CinemaService.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CinemaService.o ../TOModel/CinemaService.cpp
 
-databasemanagement.o: ../TOModel/databasemanagement.cpp ../TOModel/databasemanagement.h \
+Movie.o: ../TOModel/Movie.cpp ../TOModel/Movie.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QString \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfeatures.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtypetraits.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_armv7.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_armv6.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_armv5.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_ia64.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_mips.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_x86.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_gcc.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_unix.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstringbuilder.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Movie.o ../TOModel/Movie.cpp
+
+Room.o: ../TOModel/Room.cpp ../TOModel/Room.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Room.o ../TOModel/Room.cpp
+
+Schedule.o: ../TOModel/Schedule.cpp ../TOModel/Schedule.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Schedule.o ../TOModel/Schedule.cpp
+
+DataBaseManagement.o: ../TOModel/DataBaseManagement.cpp ../TOModel/DataBaseManagement.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/QString \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qstring.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qchar.h \
@@ -1307,9 +1366,9 @@ databasemanagement.o: ../TOModel/databasemanagement.cpp ../TOModel/databasemanag
 		/opt/Qt/5.4/gcc_64/include/QtSql/qsqltablemodel.h \
 		/opt/Qt/5.4/gcc_64/include/QtSql/qtsqlversion.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/QDebug
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o databasemanagement.o ../TOModel/databasemanagement.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DataBaseManagement.o ../TOModel/DataBaseManagement.cpp
 
-Movie.o: ../TOModel/Movie.cpp ../TOModel/Movie.h \
+User.o: ../TOModel/User.cpp ../TOModel/User.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/QString \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qstring.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qchar.h \
@@ -1346,16 +1405,548 @@ Movie.o: ../TOModel/Movie.cpp ../TOModel/Movie.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qnamespace.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qarraydata.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qstringbuilder.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Movie.o ../TOModel/Movie.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o User.o ../TOModel/User.cpp
 
-Room.o: ../TOModel/Room.cpp ../TOModel/Room.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Room.o ../TOModel/Room.cpp
+UserService.o: ../TOModel/UserService.cpp ../TOModel/UserService.h \
+		../TOModel/User.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QString \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfeatures.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtypetraits.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_armv7.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_armv6.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_armv5.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_ia64.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_mips.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_x86.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_gcc.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_unix.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstringbuilder.h \
+		../TOModel/DataBaseManagement.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/QtSql \
+		/opt/Qt/5.4/gcc_64/include/QtSql/QtSqlDepends \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QtCore \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QtCoreDepends \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractanimation.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmetatype.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qvarlengtharray.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qisenum.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qobject_impl.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qanimationgroup.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qparallelanimationgroup.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qpauseanimation.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qpropertyanimation.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qvariantanimation.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qeasingcurve.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qvector.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qvariant.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmap.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qdebug.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qhash.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtextstream.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qlocale.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qshareddata.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qset.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcontiguouscache.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qdatastream.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsequentialanimationgroup.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtextcodec.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qendian.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qlibraryinfo.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qdatetime.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbuffer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qdir.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfileinfo.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfile.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfiledevice.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qdiriterator.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfileselector.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QObject \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QStringList \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfilesystemwatcher.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qlockfile.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qloggingcategory.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qprocess.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qresource.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsavefile.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsettings.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstandardpaths.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstorageinfo.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtemporarydir.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QScopedPointer \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtemporaryfile.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qurl.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qurlquery.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractproxymodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qidentityproxymodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsortfilterproxymodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstringlistmodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qjsonarray.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qjsonvalue.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qjsondocument.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qjsonobject.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qeventloop.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbasictimer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcoreapplication.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmath.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmetaobject.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmimedata.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qobjectcleanuphandler.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qpointer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsharedpointer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsharedmemory.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsignalmapper.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsocketnotifier.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsystemsemaphore.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtimer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtranslator.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qwineventnotifier.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmimedatabase.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmimetype.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfactoryinterface.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qlibrary.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qplugin.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qpluginloader.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/quuid.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractstate.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qabstracttransition.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qeventtransition.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfinalstate.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qhistorystate.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsignaltransition.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstate.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstatemachine.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qexception.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfuture.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfutureinterface.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qrunnable.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qresultstore.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfuturesynchronizer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfuturewatcher.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qreadwritelock.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsemaphore.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qthread.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qthreadpool.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qthreadstorage.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qwaitcondition.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qarraydataops.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qarraydatapointer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbitarray.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbytearraymatcher.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcache.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcollator.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcommandlineoption.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcommandlineparser.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcryptographichash.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qelapsedtimer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qline.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qlinkedlist.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmargins.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmessageauthenticationcode.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qqueue.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qrect.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsize.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qregularexpression.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qscopedvaluerollback.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstack.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtextboundaryfinder.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtimeline.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtimezone.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qxmlstream.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtcoreversion.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsql.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqldatabase.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqldriver.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqldriverplugin.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlerror.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlfield.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlindex.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlrecord.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlquery.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlresult.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlquerymodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlrelationaldelegate.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qitemdelegate.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qstyleoption.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qwidget.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qwindowdefs.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qpaintdevice.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qpalette.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qcolor.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qrgb.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qbrush.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qmatrix.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qpolygon.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qregion.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qtransform.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qpainterpath.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qimage.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qpixelformat.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qpixmap.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qfont.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qfontmetrics.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qfontinfo.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qcursor.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qkeysequence.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qevent.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qvector2d.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qtouchdevice.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qvalidator.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qicon.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qslider.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qabstractslider.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qstyle.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qtabbar.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qtabwidget.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qrubberband.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qlistview.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qcombobox.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlrelationaltablemodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqltablemodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qtsqlversion.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QDebug
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UserService.o ../TOModel/UserService.cpp
 
-Schedule.o: ../TOModel/Schedule.cpp ../TOModel/Schedule.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Schedule.o ../TOModel/Schedule.cpp
+Permission.o: ../TOModel/Permission.cpp ../TOModel/Permission.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QString \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfeatures.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtypetraits.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_armv7.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_armv6.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_armv5.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_ia64.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_mips.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_x86.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_gcc.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_unix.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstringbuilder.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Permission.o ../TOModel/Permission.cpp
 
-usuario.o: ../TOModel/usuario.cpp ../TOModel/usuario.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o usuario.o ../TOModel/usuario.cpp
+PermissionService.o: ../TOModel/PermissionService.cpp ../TOModel/PermissionService.h \
+		../TOModel/Permission.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QString \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfeatures.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtypetraits.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_armv7.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_armv6.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_armv5.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_ia64.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_mips.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_x86.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_gcc.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qatomic_unix.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstringbuilder.h \
+		../TOModel/DataBaseManagement.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/QtSql \
+		/opt/Qt/5.4/gcc_64/include/QtSql/QtSqlDepends \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QtCore \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QtCoreDepends \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractanimation.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmetatype.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qvarlengtharray.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qisenum.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qobject_impl.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qanimationgroup.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qparallelanimationgroup.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qpauseanimation.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qpropertyanimation.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qvariantanimation.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qeasingcurve.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qvector.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qvariant.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmap.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qdebug.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qhash.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtextstream.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qlocale.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qshareddata.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qset.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcontiguouscache.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qdatastream.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsequentialanimationgroup.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtextcodec.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qendian.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qlibraryinfo.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qdatetime.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbuffer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qdir.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfileinfo.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfile.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfiledevice.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qdiriterator.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfileselector.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QObject \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QStringList \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfilesystemwatcher.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qlockfile.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qloggingcategory.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qprocess.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qresource.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsavefile.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsettings.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstandardpaths.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstorageinfo.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtemporarydir.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QScopedPointer \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtemporaryfile.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qurl.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qurlquery.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractproxymodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qidentityproxymodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsortfilterproxymodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstringlistmodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qjsonarray.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qjsonvalue.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qjsondocument.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qjsonobject.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qeventloop.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbasictimer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcoreapplication.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmath.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmetaobject.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmimedata.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qobjectcleanuphandler.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qpointer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsharedpointer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsharedmemory.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsignalmapper.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsocketnotifier.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsystemsemaphore.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtimer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtranslator.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qwineventnotifier.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmimedatabase.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmimetype.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfactoryinterface.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qlibrary.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qplugin.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qpluginloader.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/quuid.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractstate.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qabstracttransition.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qeventtransition.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfinalstate.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qhistorystate.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsignaltransition.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstate.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstatemachine.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qexception.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfuture.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfutureinterface.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qrunnable.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qresultstore.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfuturesynchronizer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qfuturewatcher.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qreadwritelock.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsemaphore.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qthread.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qthreadpool.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qthreadstorage.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qwaitcondition.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qarraydataops.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qarraydatapointer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbitarray.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qbytearraymatcher.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcache.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcollator.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcommandlineoption.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcommandlineparser.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qcryptographichash.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qelapsedtimer.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qline.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qlinkedlist.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmargins.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qmessageauthenticationcode.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qqueue.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qrect.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qsize.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qregularexpression.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qscopedvaluerollback.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qstack.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtextboundaryfinder.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtimeline.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtimezone.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qxmlstream.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/qtcoreversion.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsql.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqldatabase.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqldriver.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqldriverplugin.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlerror.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlfield.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlindex.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlrecord.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlquery.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlresult.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlquerymodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlrelationaldelegate.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qitemdelegate.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qstyleoption.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qwidget.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qwindowdefs.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qpaintdevice.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qpalette.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qcolor.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qrgb.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qbrush.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qmatrix.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qpolygon.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qregion.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qtransform.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qpainterpath.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qimage.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qpixelformat.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qpixmap.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qfont.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qfontmetrics.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qfontinfo.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qcursor.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qkeysequence.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qevent.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qvector2d.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qtouchdevice.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qvalidator.h \
+		/opt/Qt/5.4/gcc_64/include/QtGui/qicon.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qslider.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qabstractslider.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qstyle.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qtabbar.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qtabwidget.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qrubberband.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qlistview.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt/5.4/gcc_64/include/QtWidgets/qcombobox.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqlrelationaltablemodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qsqltablemodel.h \
+		/opt/Qt/5.4/gcc_64/include/QtSql/qtsqlversion.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QDebug
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PermissionService.o ../TOModel/PermissionService.cpp
 
 ####### Install
 
