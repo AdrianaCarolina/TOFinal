@@ -1,24 +1,26 @@
 #ifndef USUARIO_H
 #define USUARIO_H
 
+#include <QString>
+
 class Usuario {
 public:
     Usuario();
     Usuario(const Usuario& orig);
     virtual ~Usuario();
-    void setClave(QString location);
-    QString getClave() const;
-    void setName(QString name);
+    void setPassword(QString );
+    QString getPassword() const;
+    void setName(QString );
     QString getName() const;
-    void setId(int id);
+    void setId(int );
     int getId() const;
-    void setAcceso(int acceso);
-    int getAcceso() const;
+    void setAccess(int );
+    int getAccess() const;
 private:
     int id;
     QString name;
-    QString clave;
-    int acceso;
+    QString password;
+    int access;
 };
 
 #endif // USUARIO_H
