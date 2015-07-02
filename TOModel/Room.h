@@ -1,32 +1,31 @@
-/* 
- * File:   Room.h
- * Author: root
- *
- * Created on June 20, 2015, 1:25 PM
- */
-
 #ifndef ROOM_H
-#define	ROOM_H
+#define ROOM_H
+
+#include <QString>
+
+#include "Cinema.h"
 
 class Room {
 public:
     Room();
     Room(const Room& orig);
     virtual ~Room();
-    void setTypeRoom(int typeRoom);
+    void setTypeRoom(int);
     int getTypeRoom() const;
-    void setNumberOfSeats(int numberOfSeats);
+    void setNumberOfSeats(int );
     int getNumberOfSeats() const;
-    void setIdCinema(int idCinema);
-    int getIdCinema() const;
+    void setCinema(Cinema*);
+    Cinema* getCinema() const;
     void setId(int id);
     int getId() const;
+    void setSchedule(QString);
+    QString getSchedule() const;
 private:
     int id;
-    int idCinema;
+    Cinema* cinema;
     int numberOfSeats;
     int typeRoom;
+    QString schedule;
 };
 
 #endif	/* ROOM_H */
-

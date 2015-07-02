@@ -28,7 +28,7 @@ void PermissionService::deletePermission(int _id){
 void PermissionService::updatePermission(Permission * _permission){
     DATABASE_MANAGEMENT->open();
     DATABASE_MANAGEMENT->execute("UPDATE permiso SET acceso="+QString::number(_permission->getId())+","
-                                 +"cargo='"+_permission->getCharge()+"'"+","
+                                 +"cargo='"+_permission->getCharge()+"'"
                                  +"WHERE acceso="+QString::number(_permission->getId()));
     DATABASE_MANAGEMENT->close();
 }

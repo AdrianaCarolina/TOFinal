@@ -25,7 +25,8 @@ SOURCES += main.cpp \
     User.cpp \
     UserService.cpp \
     Permission.cpp \
-    PermissionService.cpp
+    PermissionService.cpp \
+    RoomService.cpp
 
 HEADERS += \
     Cinema.h \
@@ -37,4 +38,5 @@ HEADERS += \
     User.h \
     UserService.h \
     Permission.h \
-    PermissionService.h
+    PermissionService.h \
+    RoomService.h

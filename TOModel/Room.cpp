@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   Room.cpp
  * Author: root
- * 
+ *
  * Created on June 20, 2015, 1:25 PM
  */
 
@@ -32,19 +32,27 @@ int Room::getNumberOfSeats() const {
     return numberOfSeats;
 }
 
-void Room::setIdCinema(int idCinema) {
-    this->idCinema = idCinema;
-}
-
-int Room::getIdCinema() const {
-    return idCinema;
-}
-
-void Room::setId(int id) {
-    this->id = id;
+void Room::setId(int _id) {
+    this->id= _id;
 }
 
 int Room::getId() const {
     return id;
+}
+
+Cinema* Room::getCinema() const {
+    return cinema;
+}
+
+void Room::setCinema(Cinema* _cinema) {
+    this->cinema = _cinema;
+}
+
+QString Room::getSchedule() const{
+    return schedule;
+}
+
+void Room::setSchedule(QString _schedule){
+    this->schedule=_schedule;
 }
 

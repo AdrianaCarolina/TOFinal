@@ -2,6 +2,7 @@
 #define USUARIO_H
 
 #include <QString>
+#include "Permission.h"
 
 class User {
 public:
@@ -14,13 +15,13 @@ public:
     QString getName() const;
     void setId(int );
     int getId() const;
-    void setAccess(int );
-    int getAccess() const;
+    void setPermission(Permission* );
+    Permission* getPermission() const;
 private:
     int id;
     QString name;
     QString password;
-    int access;
+    Permission* permission;
 };
 
 #endif // USUARIO_H

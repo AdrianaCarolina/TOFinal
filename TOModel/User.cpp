@@ -5,7 +5,7 @@ User::User()
     this->id=0;
     this->name="";
     this->password="";
-    this->access=0;
+    this->permission=0;
 }
 
 User::User(const User& orig) {
@@ -15,7 +15,7 @@ User::~User() {
 }
 
 void User::setPassword(QString clave) {
-    this->password = password;
+    this->password = clave;
 }
 
 QString User::getPassword() const {
@@ -38,10 +38,10 @@ int User::getId() const {
     return id;
 }
 
-void User::setAccess(int access) {
-    this->access = access;
+Permission* User::getPermission() const{
+    return permission;
 }
 
-int User::getAccess() const {
-    return access;
+void User::setPermission(Permission * _permission){
+    this->permission=_permission;
 }
