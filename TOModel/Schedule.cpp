@@ -8,6 +8,12 @@
 #include "Schedule.h"
 
 Schedule::Schedule() {
+    this->id=0;
+    this->room=0;
+    this->ticket=0;
+    this->movie=0;
+    this->startTime="";
+    this->endTime="";
 }
 
 Schedule::Schedule(const Schedule& orig) {
@@ -16,51 +22,51 @@ Schedule::Schedule(const Schedule& orig) {
 Schedule::~Schedule() {
 }
 
-void Schedule::setEndTime(time_t endTime) {
+void Schedule::setEndTime(QString endTime) {
     this->endTime = endTime;
 }
 
-time_t Schedule::getEndTime() const {
+QString Schedule::getEndTime() const {
     return endTime;
 }
 
-void Schedule::setStartTime(time_t startTime) {
+void Schedule::setStartTime(QString startTime) {
     this->startTime = startTime;
 }
 
-time_t Schedule::getStartTime() const {
+QString Schedule::getStartTime() const {
     return startTime;
 }
 
-void Schedule::setIdRoom(int idRoom) {
-    this->idRoom = idRoom;
+void Schedule::setRoom(Room* room) {
+    this->room = room;
 }
 
-int Schedule::getIdRoom() const {
-    return idRoom;
+Room* Schedule::getRoom() const {
+    return room;
 }
 
-void Schedule::setIdTicket(int idTicket) {
-    this->idTicket = idTicket;
+void Schedule::setTicket(Ticket* ticket) {
+    this->ticket = ticket;
 }
 
-int Schedule::getIdTicket() const {
-    return idTicket;
+Ticket* Schedule::getTicket() const {
+    return ticket;
 }
 
-void Schedule::setIdMovie(int idMovie) {
-    this->idMovie = idMovie;
+void Schedule::setMovie(Movie* movie) {
+    this->movie = movie;
 }
 
-int Schedule::getIdMovie() const {
-    return idMovie;
+Movie* Schedule::getMovie() const {
+    return movie;
 }
 
-void Schedule::SetId(int id) {
+void Schedule::setId(int id) {
     this->id = id;
 }
 
-int Schedule::GetId() const {
+int Schedule::getId() const {
     return id;
 }
 

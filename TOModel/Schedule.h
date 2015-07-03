@@ -9,31 +9,34 @@
 #define	SCHEDULE_H
 
 #include <time.h>
+#include "Movie.h"
+#include "Ticket.h"
+#include "Room.h"
 
 class Schedule {
 public:
     Schedule();
     Schedule(const Schedule& orig);
     virtual ~Schedule();
-    void setEndTime(time_t endTime);
-    time_t getEndTime() const;
-    void setStartTime(time_t startTime);
-    time_t getStartTime() const;
-    void setIdRoom(int idRoom);
-    int getIdRoom() const;
-    void setIdTicket(int idTicket);
-    int getIdTicket() const;
-    void setIdMovie(int idMovie);
-    int getIdMovie() const;
-    void SetId(int id);
-    int GetId() const;
+    void setEndTime(QString );
+    QString getEndTime() const;
+    void setStartTime(QString );
+    QString getStartTime() const;
+    void setRoom(Room* );
+    Room* getRoom() const;
+    void setTicket(Ticket* );
+    Ticket* getTicket() const;
+    void setMovie(Movie* );
+    Movie* getMovie() const;
+    void setId(int);
+    int getId() const;
 private:
     int id;
-    int idMovie;
-    int idTicket;
-    int idRoom;
-    time_t startTime;
-    time_t endTime;
+    Movie* movie;
+    Ticket* ticket;
+    Room* room;
+    QString startTime;
+    QString endTime;
 };
 
 #endif	/* SCHEDULE_H */

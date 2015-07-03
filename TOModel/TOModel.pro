@@ -26,7 +26,11 @@ SOURCES += main.cpp \
     UserService.cpp \
     Permission.cpp \
     PermissionService.cpp \
-    RoomService.cpp
+    RoomService.cpp \
+    MovieService.cpp \
+    Ticket.cpp \
+    TicketService.cpp \
+    ScheduleService.cpp
 
 HEADERS += \
     Cinema.h \
@@ -39,4 +43,8 @@ HEADERS += \
     UserService.h \
     Permission.h \
     PermissionService.h \
-    RoomService.h
+    RoomService.h \
+    MovieService.h \
+    Ticket.h \
+    TicketService.h \
+    ScheduleService.h
